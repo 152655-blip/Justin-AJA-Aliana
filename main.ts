@@ -163,7 +163,7 @@ const scenes: Scene[] = [
     {
         id: "ending_bad_billy_bob",
         title: "Billy Bob Date Night",
-        description: "Billy Bob brings his mom, coupons, and asks to split the bill. Justin skateboards away sadly.",
+        description: "Billy Bob brings his mom's, coupons, and asks to split the bill. Justin skateboards away sadly.",
         choices: []
     },
 
@@ -217,8 +217,15 @@ function handleChoices(sce: Scene) {
     for (let choice of sce.choices) {
         choiceTexts.push(choice.text)
     }
-    story.showPlayerChoices(choiceTexts[0], choiceTexts[1]) // Display the choices
+    if (choiceTexts.length < 2) {
+        console.log('ERROR: THERE MUST BE AT LEAST 2 CHOICES')
 
+    } else if (choiceTexts.length == 2) {
+        story.showPlayerChoices(choiceTexts[0], choiceTexts[1]) // Display the choices
+
+    } else if (choiceTexts.length == 3) {
+        story.showPlayerChoices(choiceTexts[0], choiceTexts[1], choiceTexts[2]) // Display the choices
+    }
     // After the player picks a choice, check the result
     story.startCutscene(function () {
         let selectedChoice = story.getLastAnswer() // Get the last answer as a string
@@ -240,12 +247,15 @@ function transitionToNextScene(sceneId: string) {
 
     if (nextScene) {
         console.log('handling next scene: ' + nextScene)
+        if (nextScene.title === "Public Confession Chaos"){
+            scene.setBackgroundImage(assets.image`bg`)
+        }
         handleChoices(nextScene)
     } else {
         // Handle ending scenes
         console.log('handling ending scene: ' + sceneId)
-        if (sceneId === "good_end") {
-            story.printText("Synchronized systems. Love says yes.", 80, 90)
+        if (sceneId === "ending_good") {
+            story.printText("Susan and Justin have a sweet Valentine's Day. Fries are shared. Chaos rests. Love wins.", 80, 90)
         } else if (sceneId === "bad_end") {
             story.printText("Love reboots her feelings. You sweep alone.", 80, 90)
         } else if (sceneId === "early_end") {
@@ -272,6 +282,7 @@ function startStory() {
 function runGame() {
     tiles.setCurrentTilemap(tilemap`level`)
     scene.cameraFollowSprite(playerSprite)
+    scene.setBackgroundImage(assets.image`Paper`)
     startStory()
 }
 
