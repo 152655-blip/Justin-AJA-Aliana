@@ -3,6 +3,8 @@ namespace SpriteKind {
     export const NPC = SpriteKind.create()
 }
 
+//jeffrey
+
 // -------------- DATA STRUCTURES -----------------------
 //creating new types and interfaces is a touch too much 
 //for what I want to cover in this class. 
