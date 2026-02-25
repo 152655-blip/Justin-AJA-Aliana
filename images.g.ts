@@ -78,6 +78,7 @@ namespace myImages {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
+`;
             case "image1":
             case "npc":return img`
 f f f f f f f f f f f f f f f f 
